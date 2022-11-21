@@ -1,0 +1,25 @@
+plugins {
+	id("com.github.johnrengelman.shadow") version "7.1.2"
+	id 'java'
+}
+
+dependencies {
+	implementation platform('io.projectreactor:reactor-bom:2022.0.0')
+
+	// define dependencies without versions
+	implementation 'io.projectreactor.netty:reactor-netty-core'
+	implementation 'io.projectreactor.netty:reactor-netty-http'
+}
+
+repositories {
+	maven { url 'https://repo.spring.io/snapshot' }
+	mavenCentral()
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'reactor.netty.examples.http.helloworld.HelloWorldServer'
+	}
+}
+
+description = "Examples for the Reactor Netty library"

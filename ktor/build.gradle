@@ -1,0 +1,26 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id 'java'
+    id "org.jetbrains.kotlin.jvm" version "1.7.21"
+}
+
+repositories {
+    mavenCentral()
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.example.AppKt'
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+dependencies  {
+    implementation "io.ktor:ktor-server-core:2.1.3"
+    implementation "io.ktor:ktor-server-netty:2.1.3"
+}
