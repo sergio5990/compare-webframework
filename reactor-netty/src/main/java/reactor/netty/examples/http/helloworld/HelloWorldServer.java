@@ -34,38 +34,18 @@ import static io.netty.handler.codec.http.HttpHeaderValues.TEXT_PLAIN;
  */
 public final class HelloWorldServer {
 
-	static final boolean SECURE = System.getProperty("secure") != null;
-	static final int PORT = Integer.parseInt(System.getProperty("port", SECURE ? "8443" : "8080"));
-	static final boolean WIRETAP = System.getProperty("wiretap") != null;
-	static final boolean COMPRESS = System.getProperty("compress") != null;
-	static final boolean HTTP2 = System.getProperty("http2") != null;
-
 	public static void main(String[] args) throws Exception {
-		Thread.sleep(10_000);
 		final LocalDateTime start = LocalDateTime.now();
-
 		HttpServer server =
 				HttpServer.create()
 						.doOnBound( it -> {
 							final Duration startUp = Duration.between(start, LocalDateTime.now());
 							System.out.println("server started in " + startUp);
 						})
-				          .port(PORT)
-				          .wiretap(WIRETAP)
-				          .compress(COMPRESS)
+				          .port(8080)
 				          .route(r -> r.get("/hello",
 				                  (req, res) -> res.header(CONTENT_TYPE, TEXT_PLAIN)
 				                                   .sendString(Mono.just("Hello World!"))));
-
-		if (SECURE) {
-			SelfSignedCertificate ssc = new SelfSignedCertificate();
-			server = server.secure(
-					spec -> spec.sslContext(Http11SslContextSpec.forServer(ssc.certificate(), ssc.privateKey())));
-		}
-
-		if (HTTP2) {
-			server = server.protocol(HttpProtocol.H2);
-		}
 
 		server.bindNow()
 		      .onDispose()

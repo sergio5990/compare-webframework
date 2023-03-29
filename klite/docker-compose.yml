@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    image: klite-app:latest
+    ports:
+      - "127.0.0.1:8081:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
