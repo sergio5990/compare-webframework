@@ -3,7 +3,7 @@ version: '3.1'
 services:
   app:
     build: .
-    image: klite-app:latest
+    image: vertex:latest
     ports:
       - "127.0.0.1:8080:8080"
     deploy:

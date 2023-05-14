@@ -12,8 +12,8 @@ fun main() {
     println("klite server started at $startupTime")
 }
 
-fun sampleServer(port: Int = 8081) = Server(listen = InetSocketAddress(port)).apply {
+fun sampleServer(port: Int = 8080) = Server(listen = InetSocketAddress(port)).apply {
     context("/hello") {
-        get { "Hello World" }
+        get { "Hello Word" }
     }
 }

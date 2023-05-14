@@ -20,6 +20,7 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.Http11SslContextSpec;
 import reactor.netty.http.HttpProtocol;
 import reactor.netty.http.server.HttpServer;
+import reactor.netty.resources.LoopResources;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -45,7 +46,7 @@ public final class HelloWorldServer {
 				          .port(8080)
 				          .route(r -> r.get("/hello",
 				                  (req, res) -> res.header(CONTENT_TYPE, TEXT_PLAIN)
-				                                   .sendString(Mono.just("Hello World!"))));
+				                                   .sendString(Mono.just("Hello Word"))));
 
 		server.bindNow()
 		      .onDispose()

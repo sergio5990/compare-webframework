@@ -25,3 +25,17 @@ java -jar demo-0.0.1-SNAPSHOT.jar
 
 load test 
 ab -n2000 -c50 -r 127.0.0.1:8080/hello
+
+test final
+
+| framework     | docker size | startup time | latency / rps c20             | latency c50                   | latency c100                      |
+|---------------|-------------|--------------|-------------------------------|-------------------------------|-----------------------------------|
+| klite         | 51.86 MB    | 4.1 s        | 53.338 [ms] / 374.96 [#/sec]  | 109.823 [ms] / 455.28 [#/sec] | 186.915 [ms] / 535.00 [#/sec]     |
+| vertx         | 51.56 MB    | 2.0 s        | 32.434 [ms] / 616.64 [#/sec]  | 64.959 [ms] / 769.72 [#/sec]  | 90.815 [ms] / 1101.14 [#/sec]  2k |
+| reactor-netty | 51.92 MB    | 2.6 s        | 35.948 [ms] / 556.36 [#/sec]  | 64.723 [ms] / 772.52 [#/sec]  | 86.075 [ms] / 1161.78 [#/sec]  2k |
+
+./gradlew shadowJar
+docker-compose build
+docker-compose up
+
+

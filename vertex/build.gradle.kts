@@ -1,9 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin ("jvm") version "1.7.21"
   application
   id("com.github.johnrengelman.shadow") version "7.1.2"
 }
@@ -19,7 +17,7 @@ val vertxVersion = "4.4.0"
 val junitJupiterVersion = "5.9.1"
 
 val mainVerticleName = "com.example.starter.MainVerticle"
-val launcherClassName = "io.vertx.core.Launcher"
+val launcherClassName = "com.example.starter.Starter"
 
 val watchForChange = "src/**/*"
 val doOnChange = "${projectDir}/gradlew classes"
@@ -32,14 +30,9 @@ dependencies {
   implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
   implementation("io.vertx:vertx-core")
   implementation("io.vertx:vertx-web")
-  implementation("io.vertx:vertx-lang-kotlin")
-  implementation(kotlin("stdlib-jdk8"))
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions.jvmTarget = "11"
 
 tasks.withType<ShadowJar> {
   archiveClassifier.set("fat")
